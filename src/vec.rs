@@ -98,5 +98,20 @@ mod tests {
 
         assert_eq!((x + y).as_vec(), &vec![0f32, 4f32]);
     }
+
+    #[test]
+    fn scalar_mul() {
+        let x = Vec::from_vec(vec![1f32, 2f32]);
+
+        assert_eq!((x * 3.0).as_vec(), &vec![3f32, 6f32]);
+    }
+
+    #[test]
+    fn dot_mul() {
+        let x = Vec::from_vec(vec![1f32, 2f32]);
+        let y = Vec::from_vec(vec![-1f32, 2f32]);
+
+        assert_eq!(x * y, 3.0);
+    }
 }
 
