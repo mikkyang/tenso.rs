@@ -13,7 +13,12 @@ use std::ops::{
 use std::vec::Vec as StdVec;
 use self::blas::Vector;
 use self::blas::default::Default;
+use self::blas::matrix_vector::ops::{
+    Ger,
+    Gerc,
+};
 use self::blas::vector::ops::{Copy, Axpy, Scal, Dot, Dotc};
+use mat::Mat;
 
 pub struct Vec<T> {
     inc: i32,
@@ -35,6 +40,15 @@ impl<T> Vec<T> {
 
     pub fn as_vec(&self) -> &StdVec<T> {
         &self.data
+    }
+}
+
+impl<T> TransVec<T> {
+    pub fn as_vec(&self) -> &Vec<T> {
+        match self {
+            &TransVec::T(ref v) => v,
+            &TransVec::H(ref v) => v,
+        }
     }
 }
 
@@ -82,6 +96,23 @@ impl<T: Copy + Scal> Mul<T, Vec<T>> for Vec<T> {
     fn mul(&self, alpha: &T) -> Vec<T> {
         let mut result = self.clone();
         Scal::scal(alpha, &mut result);
+        result
+    }
+}
+
+impl<T: Copy + Ger + Gerc + Default> Mul<TransVec<T>, Mat<T>> for Vec<T> {
+    fn mul(&self, x: &TransVec<T>) -> Mat<T> {
+        let v = x.as_vec();
+        let rows = self.data.len();
+        let cols = v.data.len();
+        let one = Default::one();
+        let mut result = Mat::zero(rows, cols);
+
+        match x {
+            &TransVec::T(_) => Ger::ger(&one, self, v, &mut result),
+            &TransVec::H(_) => Gerc::gerc(&one, self, v, &mut result),
+        }
+
         result
     }
 }
