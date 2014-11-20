@@ -154,7 +154,8 @@ impl<T: fmt::Show> fmt::Show for Mat<T> {
     }
 }
 
-impl<T: Default + Gemv> Mul<Vec<T>, Vec<T>> for Mat<T> {
+impl<T> Mul<Vec<T>, Vec<T>> for Mat<T>
+where T: Default + Gemv {
     fn mul(&self, x: &Vec<T>) -> Vec<T> {
         let mut result = Vec::with_capacity(self.rows);
         let one: T = Default::one();
