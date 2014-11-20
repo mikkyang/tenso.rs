@@ -7,10 +7,15 @@ extern crate blas;
 
 use std::fmt;
 use std::mem;
+use std::num::NumCast;
 use std::ops::Index;
 use std::raw::Slice;
 use std::slice::AsSlice;
+use self::blas::default::Default;
 use self::blas::matrix::Matrix;
+use self::blas::matrix_vector::ops::{
+    Gemv,
+};
 use self::blas::vector::ops::Copy;
 
 pub struct Mat<T> {
@@ -74,6 +79,37 @@ impl<T> Mat<T> {
     }
 }
 
+impl<T> Matrix<T> for Mat<T> {
+    #[inline]
+    fn rows(&self) -> i32 {
+        let l: Option<i32> = NumCast::from(self.rows());
+        match l {
+            Some(l) => l,
+            None => panic!(),
+        }
+    }
+
+    #[inline]
+    fn cols(&self) -> i32 {
+        let l: Option<i32> = NumCast::from(self.cols());
+        match l {
+            Some(l) => l,
+            None => panic!(),
+        }
+    }
+
+    #[inline]
+    fn as_ptr(&self) -> *const T {
+        unsafe { self.as_slice().as_ptr() }
+    }
+
+    #[inline]
+    fn as_mut_ptr(&mut self) -> *mut T {
+        unsafe { self.as_mut_slice().as_mut_ptr() }
+    }
+}
+
+
 impl<T: Copy> Clone for Mat<T> {
     fn clone(&self) -> Mat<T> {
         let n = self.rows * self.cols;
@@ -118,6 +154,19 @@ impl<T: fmt::Show> fmt::Show for Mat<T> {
     }
 }
 
+impl<T: Default + Gemv> Mul<Vec<T>, Vec<T>> for Mat<T> {
+    fn mul(&self, x: &Vec<T>) -> Vec<T> {
+        let mut result = Vec::with_capacity(self.rows);
+        let one: T = Default::one();
+        let zero: T = Default::zero();
+
+        Gemv::gemv(&one, self, x, &zero, &mut result);
+        unsafe { result.set_len(self.rows); }
+
+        result
+    }
+}
+
 #[macro_export]
 macro_rules! mat(
     ($([$($e: expr),+]),*) => ({
@@ -157,5 +206,16 @@ mod tests {
         assert_eq!(2.0, m[0][1]);
         assert_eq!(3.0, m[1][0]);
         assert_eq!(4.0, m[1][1]);
+    }
+
+    #[test]
+    fn mul_vec() {
+        let a = mat![
+            [1f32, -2f32],
+            [2f32, -4f32]
+        ];
+        let x = vec![2f32, 1f32];
+
+        assert_eq!(a * x, vec![0f32, 0f32]);
     }
 }
