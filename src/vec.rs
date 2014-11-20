@@ -13,11 +13,16 @@ use std::ops::{
 use std::vec::Vec as StdVec;
 use self::blas::Vector;
 use self::blas::default::Default;
-use self::blas::vector::ops::{Copy, Axpy, Scal, Dot};
+use self::blas::vector::ops::{Copy, Axpy, Scal, Dot, Dotc};
 
 pub struct Vec<T> {
     inc: i32,
     data: StdVec<T>,
+}
+
+pub enum TransVec<T> {
+    T(Vec<T>),
+    H(Vec<T>),
 }
 
 impl<T> Vec<T> {
@@ -81,15 +86,25 @@ impl<T: Copy + Scal> Mul<T, Vec<T>> for Vec<T> {
     }
 }
 
-impl<T: Copy + Dot> Mul<Vec<T>, T> for Vec<T> {
+impl<T: Copy + Dot + Dotc> Mul<Vec<T>, T> for TransVec<T> {
     fn mul(&self, x: &Vec<T>) -> T {
-        Dot::dot(self, x)
+        match *self {
+            TransVec::T(ref v) => Dot::dot(v, x),
+            TransVec::H(ref v) => Dotc::dotc(v, x),
+        }
     }
 }
 
 #[cfg(test)]
 mod tests {
+    extern crate num;
+
+    use self::num::complex::Complex;
     use vec::Vec;
+    use vec::TransVec::{
+        T,
+        H,
+    };
 
     #[test]
     fn add() {
@@ -111,7 +126,14 @@ mod tests {
         let x = Vec::from_vec(vec![1f32, 2f32]);
         let y = Vec::from_vec(vec![-1f32, 2f32]);
 
-        assert_eq!(x * y, 3.0);
+        assert_eq!(T(x) * y, 3.0);
+    }
+
+    #[test]
+    fn complex_conj() {
+        let x = Vec::from_vec(vec![Complex::new(1f32, -1f32), Complex::new(1f32, -3f32)]);
+        let y = Vec::from_vec(vec![Complex::new(1f32, 2f32), Complex::new(1f32, 3f32)]);
+
+        assert_eq!(H(x) * y, Complex::new(-9f32, 9f32));
     }
 }
-
