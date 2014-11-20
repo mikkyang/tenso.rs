@@ -17,7 +17,13 @@ use self::blas::matrix_vector::ops::{
     Ger,
     Gerc,
 };
-use self::blas::vector::ops::{Copy, Axpy, Scal, Dot, Dotc};
+use self::blas::vector::ops::{
+    Axpy,
+    Copy,
+    Dot,
+    Dotc,
+    Scal,
+};
 use mat::Mat;
 
 pub struct Vec<T> {
@@ -83,7 +89,8 @@ impl<T: Copy> Clone for Vec<T> {
     }
 }
 
-impl<T: Copy + Axpy + Default> Add<Vec<T>, Vec<T>> for Vec<T> {
+impl<T> Add<Vec<T>, Vec<T>> for Vec<T>
+where T: Axpy + Copy + Default {
     fn add(&self, x: &Vec<T>) -> Vec<T> {
         let mut result = self.clone();
         let one: T = Default::one();
@@ -92,7 +99,8 @@ impl<T: Copy + Axpy + Default> Add<Vec<T>, Vec<T>> for Vec<T> {
     }
 }
 
-impl<T: Copy + Scal> Mul<T, Vec<T>> for Vec<T> {
+impl<T> Mul<T, Vec<T>> for Vec<T>
+where T: Copy + Scal {
     fn mul(&self, alpha: &T) -> Vec<T> {
         let mut result = self.clone();
         Scal::scal(alpha, &mut result);
@@ -100,7 +108,8 @@ impl<T: Copy + Scal> Mul<T, Vec<T>> for Vec<T> {
     }
 }
 
-impl<T: Copy + Ger + Gerc + Default> Mul<TransVec<T>, Mat<T>> for Vec<T> {
+impl<T> Mul<TransVec<T>, Mat<T>> for Vec<T>
+where T: Copy + Default + Ger + Gerc {
     fn mul(&self, x: &TransVec<T>) -> Mat<T> {
         let v = x.as_vec();
         let rows = self.data.len();
@@ -117,7 +126,8 @@ impl<T: Copy + Ger + Gerc + Default> Mul<TransVec<T>, Mat<T>> for Vec<T> {
     }
 }
 
-impl<T: Copy + Dot + Dotc> Mul<Vec<T>, T> for TransVec<T> {
+impl<T> Mul<Vec<T>, T> for TransVec<T>
+where T: Copy + Dot + Dotc {
     fn mul(&self, x: &Vec<T>) -> T {
         match *self {
             TransVec::T(ref v) => Dot::dot(v, x),
