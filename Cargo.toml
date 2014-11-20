@@ -7,3 +7,7 @@ authors = ["Michael Yang <mikkyangg@gmail.com>"]
 [dependencies.blas]
 
 git = "https://github.com/mikkyang/rust-blas.git"
+
+[dependencies.num]
+
+git = "https://github.com/rust-lang/num.git"
