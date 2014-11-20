@@ -13,6 +13,9 @@ use std::raw::Slice;
 use std::slice::AsSlice;
 use self::blas::default::Default;
 use self::blas::matrix::Matrix;
+use self::blas::matrix::ops::{
+    Gemm,
+};
 use self::blas::matrix_vector::ops::{
     Gemv,
 };
@@ -168,6 +171,18 @@ where T: Default + Gemv {
     }
 }
 
+impl<T> Mul<Mat<T>, Mat<T>> for Mat<T>
+where T: Default + Gemm {
+    fn mul(&self, b: &Mat<T>) -> Mat<T> {
+        let mut result = Mat::zero(self.cols, b.rows);
+        let one: T = Default::one();
+        let zero: T = Default::zero();
+        Gemm::gemm(&one, self, b, &zero, &mut result);
+
+        result
+    }
+}
+
 #[macro_export]
 macro_rules! mat(
     ($([$($e: expr),+]),*) => ({
@@ -218,5 +233,23 @@ mod tests {
         let x = vec![2f32, 1f32];
 
         assert_eq!(a * x, vec![0f32, 0f32]);
+    }
+
+    #[test]
+    fn mul_mat() {
+        let a = mat![
+            [1f32, -2f32],
+            [2f32, -4f32]
+        ];
+        let b = mat![
+            [1f32, -2f32],
+            [2f32, -4f32]
+        ];
+
+        let result = mat![
+            [-3f32, 6f32],
+            [-6f32, 12f32]
+        ];
+        assert_eq!(a * b, result);
     }
 }
