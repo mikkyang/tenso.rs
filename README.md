@@ -6,7 +6,7 @@ LAPACK bindings should be added in the near future.
 As a side note, I have no idea if the name of this library is mathematically
 correct.
 
-```
+```toml
 # Cargo.toml
 [dependencies.tensors]
 
@@ -31,7 +31,7 @@ There are also types to add attributes to these containers for transpose or Herm
 
 For example, calculating dot product:
 
-```
+```rust
 extern crate tensors;
 
 use tensors::vec::Vec as TVec;
