@@ -93,8 +93,7 @@ impl<T> Add<Vec<T>, Vec<T>> for Vec<T>
 where T: Axpy + Copy + Default {
     fn add(&self, x: &Vec<T>) -> Vec<T> {
         let mut result = self.clone();
-        let one: T = Default::one();
-        Axpy::axpy(&one, x, &mut result);
+        Axpy::axpy(&Default::one(), x, &mut result);
         result
     }
 }
@@ -114,12 +113,11 @@ where T: Copy + Default + Ger + Gerc {
         let v = x.as_vec();
         let rows = self.data.len();
         let cols = v.data.len();
-        let one = Default::one();
         let mut result = Mat::zero(rows, cols);
 
         match x {
-            &TransVec::T(_) => Ger::ger(&one, self, v, &mut result),
-            &TransVec::H(_) => Gerc::gerc(&one, self, v, &mut result),
+            &TransVec::T(_) => Ger::ger(&Default::one(), self, v, &mut result),
+            &TransVec::H(_) => Gerc::gerc(&Default::one(), self, v, &mut result),
         }
 
         result

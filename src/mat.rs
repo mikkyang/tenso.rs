@@ -161,10 +161,8 @@ impl<T> Mul<Vec<T>, Vec<T>> for Mat<T>
 where T: Default + Gemv {
     fn mul(&self, x: &Vec<T>) -> Vec<T> {
         let mut result = Vec::with_capacity(self.rows);
-        let one: T = Default::one();
-        let zero: T = Default::zero();
 
-        Gemv::gemv(&one, self, x, &zero, &mut result);
+        Gemv::gemv(&Default::one(), self, x, &Default::zero(), &mut result);
         unsafe { result.set_len(self.rows); }
 
         result
@@ -175,9 +173,7 @@ impl<T> Mul<Mat<T>, Mat<T>> for Mat<T>
 where T: Default + Gemm {
     fn mul(&self, b: &Mat<T>) -> Mat<T> {
         let mut result = Mat::zero(self.cols, b.rows);
-        let one: T = Default::one();
-        let zero: T = Default::zero();
-        Gemm::gemm(&one, self, b, &zero, &mut result);
+        Gemm::gemm(&Default::one(), self, b, &Default::zero(), &mut result);
 
         result
     }
