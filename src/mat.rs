@@ -181,7 +181,7 @@ where T: Default + Gemm {
 
 #[macro_export]
 macro_rules! mat(
-    ($([$($e: expr),+]),*) => ({
+    ($($($e: expr),+);*) => ({
         // leading _ to allow empty construction without a warning.
         let mut _temp = Mat::new();
         let mut rows = 0u;
@@ -212,8 +212,15 @@ mod tests {
 
     #[test]
     fn index() {
-        let m = mat![[1f32,2f32],[3f32,4f32]];
+        let a = mat![1f32, 2f32];
+        assert_eq!(1.0, a[0][0]);
+        assert_eq!(2.0, a[0][1]);
 
+        let b = mat![1f32; 2f32];
+        assert_eq!(1.0, b[0][0]);
+        assert_eq!(2.0, b[1][0]);
+
+        let m = mat![1f32, 2f32; 3f32, 4f32];
         assert_eq!(1.0, m[0][0]);
         assert_eq!(2.0, m[0][1]);
         assert_eq!(3.0, m[1][0]);
@@ -222,10 +229,7 @@ mod tests {
 
     #[test]
     fn mul_vec() {
-        let a = mat![
-            [1f32, -2f32],
-            [2f32, -4f32]
-        ];
+        let a = mat![1f32, -2f32; 2f32, -4f32];
         let x = vec![2f32, 1f32];
 
         assert_eq!(a * x, vec![0f32, 0f32]);
@@ -233,19 +237,10 @@ mod tests {
 
     #[test]
     fn mul_mat() {
-        let a = mat![
-            [1f32, -2f32],
-            [2f32, -4f32]
-        ];
-        let b = mat![
-            [1f32, -2f32],
-            [2f32, -4f32]
-        ];
+        let a = mat![1f32, -2f32; 2f32, -4f32];
+        let b = mat![1f32, -2f32; 2f32, -4f32];
 
-        let result = mat![
-            [-3f32, 6f32],
-            [-6f32, 12f32]
-        ];
+        let result = mat![-3f32, 6f32; -6f32, 12f32];
         assert_eq!(a * b, result);
     }
 }
