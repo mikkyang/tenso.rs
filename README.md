@@ -18,6 +18,9 @@ git = "https://github.com/mikkyang/tenso.rs.git"
 * Rust: Tensors is built on the nightly builds of the Rust repository.
 * BLAS: By default, Tensors links against the BLAS library on your system,
 using the `-lblas` flag.
+* LAPACK: By default, Tensors links against the LAPACK library on your system,
+using the `-llapack` flag. Note that at the moment, all of the LAPACK calls are
+Fortan based and expect column indexed memory.
 
 # Overview
 
