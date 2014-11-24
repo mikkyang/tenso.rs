@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Mat` struct in crate `tensors`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Mat">
+
+    <title>tensors::mat::Mat - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='../index.html'>tensors</a>::<wbr><a href='index.html'>mat</a></p><div class='block struct'><h2>Structs</h2><a class='struct current' href='struct.Mat.html'>Mat</a></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>tensors</a>::<wbr><a href='index.html'>mat</a>::<wbr><a class='struct' href=''>Mat</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]
+            </a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-491' href='../../src/tensors/Users/mikkyang/Code/tenso.rs/src/mat.rs.html#24-28'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Mat&lt;T&gt; {
+    // some fields omitted
+}</pre><h2 id='methods'>Methods</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T&gt; <a class='struct' href='../../tensors/mat/struct.Mat.html' title='tensors::mat::Mat'>Mat</a>&lt;T&gt;</code></h3><div class='impl-methods'><h4 id='method.new' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../../tensors/mat/struct.Mat.html' title='tensors::mat::Mat'>Mat</a>&lt;T&gt;</code></h4>
+<h4 id='method.from_vec' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.from_vec' class='fnname'>from_vec</a>(rows: <a href='http://doc.rust-lang.org/nightly/std/primitive.uint.html'>uint</a>, cols: <a href='http://doc.rust-lang.org/nightly/std/primitive.uint.html'>uint</a>, vec: <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;T&gt;) -&gt; <a class='struct' href='../../tensors/mat/struct.Mat.html' title='tensors::mat::Mat'>Mat</a>&lt;T&gt;</code></h4>
+<h4 id='method.zero' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.zero' class='fnname'>zero</a>(rows: <a href='http://doc.rust-lang.org/nightly/std/primitive.uint.html'>uint</a>, cols: <a href='http://doc.rust-lang.org/nightly/std/primitive.uint.html'>uint</a>) -&gt; <a class='struct' href='../../tensors/mat/struct.Mat.html' title='tensors::mat::Mat'>Mat</a>&lt;T&gt;</code></h4>
+<h4 id='method.push' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.push' class='fnname'>push</a>(&amp;mut self, value: T)</code></h4>
+<h4 id='method.rows' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.rows' class='fnname'>rows</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.uint.html'>uint</a></code></h4>
+<h4 id='method.cols' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.cols' class='fnname'>cols</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.uint.html'>uint</a></code></h4>
+<h4 id='method.set_rows' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.set_rows' class='fnname'>set_rows</a>(&amp;mut self, rows: <a href='http://doc.rust-lang.org/nightly/std/primitive.uint.html'>uint</a>)</code></h4>
+<h4 id='method.set_cols' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.set_cols' class='fnname'>set_cols</a>(&amp;mut self, cols: <a href='http://doc.rust-lang.org/nightly/std/primitive.uint.html'>uint</a>)</code></h4>
+<h4 id='method.as_slice' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.as_slice' class='fnname'>as_slice</a>&lt;'a&gt;(&amp;'a self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'a [T]</a></code></h4>
+<h4 id='method.as_mut_slice' class='method'><a class='stability Unmarked' title='No stability level'></a><code>unsafe fn <a href='#method.as_mut_slice' class='fnname'>as_mut_slice</a>&lt;'a&gt;(&amp;'a mut self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'a mut [T]</a></code></h4>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T&gt; <a class='trait' href='../../blas/matrix/trait.Matrix.html' title='blas::matrix::Matrix'>Matrix</a>&lt;T&gt; for <a class='struct' href='../../tensors/mat/struct.Mat.html' title='tensors::mat::Mat'>Mat</a>&lt;T&gt;</code></h3><div class='impl-methods'><h4 id='method.rows' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.rows' class='fnname'>rows</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
+<h4 id='method.cols' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.cols' class='fnname'>cols</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
+<h4 id='method.as_ptr' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.as_ptr' class='fnname'>as_ptr</a>(&amp;self) -&gt; *const T</code></h4>
+<h4 id='method.as_mut_ptr' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#method.as_mut_ptr' class='fnname'>as_mut_ptr</a>(&amp;mut self) -&gt; *mut T</code></h4>
+<h4 id='method.lead_dim' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.lead_dim' class='fnname'>lead_dim</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></h4>
+<h4 id='method.order' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.order' class='fnname'>order</a>(&amp;self) -&gt; <a class='enum' href='../../blas/attribute/enum.Order.html' title='blas::attribute::Order'>Order</a></code></h4>
+<h4 id='method.transpose' class='method'><a class='stability Unmarked' title='No stability level'></a><code>fn <a href='#tymethod.transpose' class='fnname'>transpose</a>(&amp;self) -&gt; <a class='enum' href='../../blas/attribute/enum.Transpose.html' title='blas::attribute::Transpose'>Transpose</a></code></h4>
+</div><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T: <a class='trait' href='../../blas/vector/ops/trait.Copy.html' title='blas::vector::ops::Copy'>Copy</a>&gt; <a class='trait' href='http://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../tensors/mat/struct.Mat.html' title='tensors::mat::Mat'>Mat</a>&lt;T&gt;</code></h3><div class='impl-methods'><h4 id='method.clone' class='method'><a class='stability Unstable' title='Unstable'></a><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../tensors/mat/struct.Mat.html' title='tensors::mat::Mat'>Mat</a>&lt;T&gt;</code></h4>
+<h4 id='method.clone_from' class='method'><a class='stability Experimental' title='Experimental: this function is mostly unused'></a><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T: <a class='trait' href='http://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a>&gt; <a class='trait' href='http://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='struct' href='../../tensors/mat/struct.Mat.html' title='tensors::mat::Mat'>Mat</a>&lt;T&gt;</code></h3><div class='impl-methods'><h4 id='method.eq' class='method'><a class='stability Unstable' title='Unstable: Definition may change slightly after trait reform'></a><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;<a class='struct' href='../../tensors/mat/struct.Mat.html' title='tensors::mat::Mat'>Mat</a>&lt;T&gt;) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Unstable' title='Unstable: Definition may change slightly after trait reform'></a><code>fn <a href='#tymethod.ne' class='fnname'>ne</a>(&amp;self, other: &amp;Self) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T&gt; <a class='trait' href='http://doc.rust-lang.org/nightly/core/ops/trait.Index.html' title='core::ops::Index'>Index</a>&lt;<a href='http://doc.rust-lang.org/nightly/std/primitive.uint.html'>uint</a>, <a href='http://doc.rust-lang.org/nightly/std/primitive.slice.html'>[T]</a>&gt; for <a class='struct' href='../../tensors/mat/struct.Mat.html' title='tensors::mat::Mat'>Mat</a>&lt;T&gt;</code></h3><div class='impl-methods'><h4 id='method.index' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.index' class='fnname'>index</a>&lt;'a&gt;(&amp;'a self, index: &amp;<a href='http://doc.rust-lang.org/nightly/std/primitive.uint.html'>uint</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'a [T]</a></code></h4>
+</div><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T: <a class='trait' href='http://doc.rust-lang.org/nightly/core/fmt/trait.Show.html' title='core::fmt::Show'>Show</a>&gt; <a class='trait' href='http://doc.rust-lang.org/nightly/core/fmt/trait.Show.html' title='core::fmt::Show'>Show</a> for <a class='struct' href='../../tensors/mat/struct.Mat.html' title='tensors::mat::Mat'>Mat</a>&lt;T&gt;</code></h3><div class='impl-methods'><h4 id='method.fmt' class='method'><a class='stability Unstable' title='Unstable: I/O and core have yet to be reconciled'></a><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='http://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='http://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T&gt; <a class='trait' href='http://doc.rust-lang.org/nightly/core/ops/trait.Mul.html' title='core::ops::Mul'>Mul</a>&lt;<a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;T&gt;, <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;T&gt;&gt; for <a class='struct' href='../../tensors/mat/struct.Mat.html' title='tensors::mat::Mat'>Mat</a>&lt;T&gt; where T: <a class='trait' href='../../blas/default/trait.Default.html' title='blas::default::Default'>Default</a> + <a class='trait' href='../../blas/matrix_vector/ops/trait.Gemv.html' title='blas::matrix_vector::ops::Gemv'>Gemv</a></code></h3><div class='impl-methods'><h4 id='method.mul' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.mul' class='fnname'>mul</a>(&amp;self, x: &amp;<a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;T&gt;) -&gt; <a class='struct' href='http://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;T&gt;</code></h4>
+</div><h3 class='impl'><a class='stability Unmarked' title='No stability level'></a><code>impl&lt;T&gt; <a class='trait' href='http://doc.rust-lang.org/nightly/core/ops/trait.Mul.html' title='core::ops::Mul'>Mul</a>&lt;<a class='struct' href='../../tensors/mat/struct.Mat.html' title='tensors::mat::Mat'>Mat</a>&lt;T&gt;, <a class='struct' href='../../tensors/mat/struct.Mat.html' title='tensors::mat::Mat'>Mat</a>&lt;T&gt;&gt; for <a class='struct' href='../../tensors/mat/struct.Mat.html' title='tensors::mat::Mat'>Mat</a>&lt;T&gt; where T: <a class='trait' href='../../blas/default/trait.Default.html' title='blas::default::Default'>Default</a> + <a class='trait' href='../../blas/matrix/ops/trait.Gemm.html' title='blas::matrix::ops::Gemm'>Gemm</a></code></h3><div class='impl-methods'><h4 id='method.mul' class='method'><a class='stability Experimental' title='Experimental'></a><code>fn <a href='#method.mul' class='fnname'>mul</a>(&amp;self, b: &amp;<a class='struct' href='../../tensors/mat/struct.Mat.html' title='tensors::mat::Mat'>Mat</a>&lt;T&gt;) -&gt; <a class='struct' href='../../tensors/mat/struct.Mat.html' title='tensors::mat::Mat'>Mat</a>&lt;T&gt;</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "tensors";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script async src="../../search-index.js"></script>
+</body>
+</html>
