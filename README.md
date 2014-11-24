@@ -13,6 +13,10 @@ correct.
 git = "https://github.com/mikkyang/tenso.rs.git"
 ```
 
+# Documentation
+
+Cargo generated [documentation](http://mikkyang.github.io/tenso.rs/doc/tensors/index.html).
+
 # Dependencies
 
 * Rust: Tensors is built on the nightly builds of the Rust repository.
