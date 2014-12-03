@@ -42,7 +42,7 @@ For example, calculating dot product:
 extern crate tensors;
 
 use tensors::vec::Vec as TVec;
-use tensors::vec::TransVec::T;
+use tensors::Trans::T;
 
 fn main() {
     let x = TVec::from_vec(vec![1f32, 2f32]);

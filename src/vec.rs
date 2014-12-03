@@ -24,16 +24,12 @@ use self::blas::vector::ops::{
     Dotc,
     Scal,
 };
+use Trans;
 use mat::Mat;
 
 pub struct Vec<T> {
     inc: i32,
     data: StdVec<T>,
-}
-
-pub enum TransVec<T> {
-    T(Vec<T>),
-    H(Vec<T>),
 }
 
 impl<T> Vec<T> {
@@ -46,15 +42,6 @@ impl<T> Vec<T> {
 
     pub fn as_vec(&self) -> &StdVec<T> {
         &self.data
-    }
-}
-
-impl<T> TransVec<T> {
-    pub fn into_inner(&self) -> &Vec<T> {
-        match self {
-            &TransVec::T(ref v) => v,
-            &TransVec::H(ref v) => v,
-        }
     }
 }
 
@@ -107,29 +94,29 @@ where T: Copy + Scal {
     }
 }
 
-impl<T> Mul<TransVec<T>, Mat<T>> for Vec<T>
+impl<T> Mul<Trans<Vec<T>>, Mat<T>> for Vec<T>
 where T: Copy + Default + Ger + Gerc {
-    fn mul(&self, x: &TransVec<T>) -> Mat<T> {
+    fn mul(&self, x: &Trans<Vec<T>>) -> Mat<T> {
         let v = x.into_inner();
         let rows = self.data.len();
         let cols = v.data.len();
         let mut result = Mat::zero(rows, cols);
 
         match x {
-            &TransVec::T(_) => Ger::ger(&Default::one(), self, v, &mut result),
-            &TransVec::H(_) => Gerc::gerc(&Default::one(), self, v, &mut result),
+            &Trans::T(_) => Ger::ger(&Default::one(), self, v, &mut result),
+            &Trans::H(_) => Gerc::gerc(&Default::one(), self, v, &mut result),
         }
 
         result
     }
 }
 
-impl<T> Mul<Vec<T>, T> for TransVec<T>
+impl<T> Mul<Vec<T>, T> for Trans<Vec<T>>
 where T: Copy + Dot + Dotc {
     fn mul(&self, x: &Vec<T>) -> T {
         match *self {
-            TransVec::T(ref v) => Dot::dot(v, x),
-            TransVec::H(ref v) => Dotc::dotc(v, x),
+            Trans::T(ref v) => Dot::dot(v, x),
+            Trans::H(ref v) => Dotc::dotc(v, x),
         }
     }
 }
@@ -140,7 +127,7 @@ mod tests {
 
     use self::num::complex::Complex;
     use vec::Vec;
-    use vec::TransVec::{
+    use Trans::{
         T,
         H,
     };
