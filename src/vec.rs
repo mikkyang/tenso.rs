@@ -50,10 +50,7 @@ impl<T> Vector<T> for Vec<T> {
     fn inc(&self) -> i32 { self.inc }
 
     #[inline]
-    fn len(&self) -> i32 {
-        let l: Option<i32> = NumCast::from(self.data.len());
-        l.unwrap()
-    }
+    fn len(&self) -> i32 { NumCast::from(self.data.len()).unwrap() }
 
     #[inline]
     fn as_ptr(&self) -> *const T { self.data.as_slice().as_ptr() }
