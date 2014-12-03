@@ -76,9 +76,11 @@ impl<T: Copy> Clone for Vec<T> {
     }
 }
 
-impl<T> Add<Vec<T>, Vec<T>> for Vec<T>
-where T: Axpy + Copy + Default {
-    fn add(&self, x: &Vec<T>) -> Vec<T> {
+impl<T, V> Add<V, Vec<T>> for Vec<T>
+where T: Axpy + Copy + Default,
+      V: Vector<T>,
+{
+    fn add(&self, x: &V) -> Vec<T> {
         let mut result = self.clone();
         Axpy::axpy(&Default::one(), x, &mut result);
         result
@@ -86,7 +88,8 @@ where T: Axpy + Copy + Default {
 }
 
 impl<T> Mul<T, Vec<T>> for Vec<T>
-where T: Copy + Scal {
+where T: Copy + Scal,
+{
     fn mul(&self, alpha: &T) -> Vec<T> {
         let mut result = self.clone();
         Scal::scal(alpha, &mut result);
@@ -94,12 +97,14 @@ where T: Copy + Scal {
     }
 }
 
-impl<T> Mul<Trans<Vec<T>>, Mat<T>> for Vec<T>
-where T: Copy + Default + Ger + Gerc {
-    fn mul(&self, x: &Trans<Vec<T>>) -> Mat<T> {
+impl<T, V> Mul<Trans<V>, Mat<T>> for Vec<T>
+where T: Copy + Default + Ger + Gerc,
+      V: Vector<T>,
+{
+    fn mul(&self, x: &Trans<V>) -> Mat<T> {
         let v = x.into_inner();
         let rows = self.data.len();
-        let cols = v.data.len();
+        let cols: uint = NumCast::from(v.len()).unwrap();
         let mut result = Mat::zero(rows, cols);
 
         match x {
@@ -111,9 +116,11 @@ where T: Copy + Default + Ger + Gerc {
     }
 }
 
-impl<T> Mul<Vec<T>, T> for Trans<Vec<T>>
-where T: Copy + Dot + Dotc {
-    fn mul(&self, x: &Vec<T>) -> T {
+impl<T, V> Mul<V, T> for Trans<Vec<T>>
+where T: Copy + Dot + Dotc,
+      V: Vector<T>,
+{
+    fn mul(&self, x: &V) -> T {
         match *self {
             Trans::T(ref v) => Dot::dot(v, x),
             Trans::H(ref v) => Dotc::dotc(v, x),
@@ -135,7 +142,7 @@ mod tests {
     #[test]
     fn add() {
         let x = Vec::from_vec(vec![1f32, 2f32]);
-        let y = Vec::from_vec(vec![-1f32, 2f32]);
+        let y = vec![-1f32, 2f32];
 
         assert_eq!((x + y).as_vec(), &vec![0f32, 4f32]);
     }
@@ -150,7 +157,7 @@ mod tests {
     #[test]
     fn dot_mul() {
         let x = Vec::from_vec(vec![1f32, 2f32]);
-        let y = Vec::from_vec(vec![-1f32, 2f32]);
+        let y = vec![-1f32, 2f32];
 
         assert_eq!(T(x) * y, 3.0);
     }
@@ -158,7 +165,7 @@ mod tests {
     #[test]
     fn complex_conj() {
         let x = Vec::from_vec(vec![Complex::new(1f32, -1f32), Complex::new(1f32, -3f32)]);
-        let y = Vec::from_vec(vec![Complex::new(1f32, 2f32), Complex::new(1f32, 3f32)]);
+        let y = vec![Complex::new(1f32, 2f32), Complex::new(1f32, 3f32)];
 
         assert_eq!(H(x) * y, Complex::new(-9f32, 9f32));
     }
