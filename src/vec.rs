@@ -50,7 +50,7 @@ impl<T> Vec<T> {
 }
 
 impl<T> TransVec<T> {
-    pub fn as_vec(&self) -> &Vec<T> {
+    pub fn into_inner(&self) -> &Vec<T> {
         match self {
             &TransVec::T(ref v) => v,
             &TransVec::H(ref v) => v,
@@ -110,7 +110,7 @@ where T: Copy + Scal {
 impl<T> Mul<TransVec<T>, Mat<T>> for Vec<T>
 where T: Copy + Default + Ger + Gerc {
     fn mul(&self, x: &TransVec<T>) -> Mat<T> {
-        let v = x.as_vec();
+        let v = x.into_inner();
         let rows = self.data.len();
         let cols = v.data.len();
         let mut result = Mat::zero(rows, cols);
