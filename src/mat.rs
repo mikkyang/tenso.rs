@@ -202,7 +202,7 @@ macro_rules! mat(
 
         _temp
     });
-)
+);
 
 #[cfg(test)]
 mod tests {
