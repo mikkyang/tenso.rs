@@ -1,23 +1,19 @@
 // Copyright 2014 Michael Yang. All rights reserved.
 // Use of this source code is governed by a MIT-style
 // license that can be found in the LICENSE file.
-
-extern crate blas;
-extern crate num;
-
 use std::num::NumCast;
 use std::ops::{
     Add,
     Mul,
 };
 use std::vec::Vec as StdVec;
-use self::blas::Vector;
-use self::blas::default::Default;
-use self::blas::matrix_vector::ops::{
+use blas::Vector;
+use blas::default::Default;
+use blas::matrix_vector::ops::{
     Ger,
     Gerc,
 };
-use self::blas::vector::ops::{
+use blas::vector::ops::{
     Axpy,
     Copy,
     Dot,

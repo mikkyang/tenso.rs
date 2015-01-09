@@ -3,23 +3,21 @@
 // license that can be found in the LICENSE file.
 #![macro_escape]
 
-extern crate blas;
-
 use std::fmt;
 use std::mem;
 use std::num::NumCast;
 use std::ops::Index;
 use std::raw::Slice;
 use std::slice::AsSlice;
-use self::blas::default::Default;
-use self::blas::matrix::Matrix;
-use self::blas::matrix::ops::{
+use blas::default::Default;
+use blas::matrix::Matrix;
+use blas::matrix::ops::{
     Gemm,
 };
-use self::blas::matrix_vector::ops::{
+use blas::matrix_vector::ops::{
     Gemv,
 };
-use self::blas::vector::ops::Copy;
+use blas::vector::ops::Copy;
 
 pub struct Mat<T> {
     rows: uint,
