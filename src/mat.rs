@@ -157,9 +157,9 @@ impl<T: fmt::Show> fmt::Show for Mat<T> {
     }
 }
 
-impl<T> Mul<Vec<T>, Vec<T>> for Mat<T>
+impl<'a, T> Mul<&'a Vec<T>, Vec<T>> for Mat<T>
 where T: Default + Gemv {
-    fn mul(&self, x: &Vec<T>) -> Vec<T> {
+    fn mul(&self, x: &'a Vec<T>) -> Vec<T> {
         let mut result = Vec::with_capacity(self.rows);
 
         Gemv::gemv(&Default::one(), self, x, &Default::zero(), &mut result);
@@ -169,9 +169,9 @@ where T: Default + Gemv {
     }
 }
 
-impl<T> Mul<Mat<T>, Mat<T>> for Mat<T>
+impl<'a, T> Mul<&'a Mat<T>, Mat<T>> for Mat<T>
 where T: Default + Gemm {
-    fn mul(&self, b: &Mat<T>) -> Mat<T> {
+    fn mul(&self, b: &'a Mat<T>) -> Mat<T> {
         let mut result = Mat::zero(self.cols, b.rows);
         Gemm::gemm(&Default::one(), self, b, &Default::zero(), &mut result);
 

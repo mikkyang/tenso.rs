@@ -73,32 +73,32 @@ impl<T: Copy> Clone for Vec<T> {
     }
 }
 
-impl<T, V> Add<V, Vec<T>> for Vec<T>
+impl<'a, T, V> Add<&'a V, Vec<T>> for Vec<T>
 where T: Axpy + Copy + Default,
       V: Vector<T>,
 {
-    fn add(&self, x: &V) -> Vec<T> {
+    fn add(&self, x: &'a V) -> Vec<T> {
         let mut result = self.clone();
         Axpy::axpy(&Default::one(), x, &mut result);
         result
     }
 }
 
-impl<T> Mul<T, Vec<T>> for Vec<T>
+impl<'a, T> Mul<&'a T, Vec<T>> for Vec<T>
 where T: Copy + Scal,
 {
-    fn mul(&self, alpha: &T) -> Vec<T> {
+    fn mul(&self, alpha: &'a T) -> Vec<T> {
         let mut result = self.clone();
         Scal::scal(alpha, &mut result);
         result
     }
 }
 
-impl<T, V> Mul<Trans<V>, Mat<T>> for Vec<T>
+impl<'a, T, V> Mul<&'a Trans<V>, Mat<T>> for Vec<T>
 where T: Copy + Default + Ger + Gerc,
       V: Vector<T>,
 {
-    fn mul(&self, x: &Trans<V>) -> Mat<T> {
+    fn mul(&self, x: &'a Trans<V>) -> Mat<T> {
         let v = x.into_inner();
         let rows = self.data.len();
         let cols: uint = NumCast::from(v.len()).unwrap();
@@ -113,11 +113,11 @@ where T: Copy + Default + Ger + Gerc,
     }
 }
 
-impl<T, V> Mul<V, T> for Trans<Vec<T>>
+impl<'a, T, V> Mul<&'a V, T> for Trans<Vec<T>>
 where T: Copy + Dot + Dotc,
       V: Vector<T>,
 {
-    fn mul(&self, x: &V) -> T {
+    fn mul(&self, x: &'a V) -> T {
         match *self {
             Trans::T(ref v) => Dot::dot(v, x),
             Trans::H(ref v) => Dotc::dotc(v, x),
