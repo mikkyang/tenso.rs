@@ -8,7 +8,6 @@ use std::ops::{
 };
 use std::vec::Vec as StdVec;
 use blas::Vector;
-use blas::default::Default;
 use blas::matrix_vector::ops::{
     Ger,
     Gerc,
@@ -21,6 +20,7 @@ use blas::vector::ops::{
     Scal,
 };
 use Trans;
+use default::Default;
 use mat::Mat;
 
 pub struct Vec<T> {

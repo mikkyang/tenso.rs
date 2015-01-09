@@ -4,6 +4,8 @@
 extern crate "rblas" as blas;
 extern crate num;
 
+mod default;
+
 pub mod vec;
 pub mod mat;
 

@@ -12,7 +12,6 @@ use std::ops::{
 };
 use std::raw::Slice;
 use std::slice::AsSlice;
-use blas::default::Default;
 use blas::matrix::Matrix;
 use blas::matrix::ops::{
     Gemm,
@@ -21,6 +20,7 @@ use blas::matrix_vector::ops::{
     Gemv,
 };
 use blas::vector::ops::Copy;
+use default::Default;
 
 pub struct Mat<T> {
     rows: uint,
