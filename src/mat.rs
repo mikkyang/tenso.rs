@@ -239,7 +239,7 @@ mod tests {
         let a = mat![1f32, -2f32; 2f32, -4f32];
         let x = vec![2f32, 1f32];
 
-        assert_eq!(a * x, vec![0f32, 0f32]);
+        assert_eq!(&a * &x, vec![0f32, 0f32]);
     }
 
     #[test]
@@ -248,6 +248,6 @@ mod tests {
         let b = mat![1f32, -2f32; 2f32, -4f32];
 
         let result = mat![-3f32, 6f32; -6f32, 12f32];
-        assert_eq!(a * b, result);
+        assert_eq!(&a * &b, result);
     }
 }

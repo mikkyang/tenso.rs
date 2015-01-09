@@ -145,14 +145,14 @@ mod tests {
         let x = Vec::from_vec(vec![1f32, 2f32]);
         let y = vec![-1f32, 2f32];
 
-        assert_eq!((x + y).as_vec(), &vec![0f32, 4f32]);
+        assert_eq!((&x + &y).as_vec(), &vec![0f32, 4f32]);
     }
 
     #[test]
     fn scalar_mul() {
         let x = Vec::from_vec(vec![1f32, 2f32]);
 
-        assert_eq!((x * 3.0).as_vec(), &vec![3f32, 6f32]);
+        assert_eq!((&x * &3.0).as_vec(), &vec![3f32, 6f32]);
     }
 
     #[test]
@@ -160,7 +160,7 @@ mod tests {
         let x = Vec::from_vec(vec![1f32, 2f32]);
         let y = vec![-1f32, 2f32];
 
-        assert_eq!(T(x) * y, 3.0);
+        assert_eq!(&T(x) * &y, 3.0);
     }
 
     #[test]
@@ -168,6 +168,6 @@ mod tests {
         let x = Vec::from_vec(vec![Complex::new(1f32, -1f32), Complex::new(1f32, -3f32)]);
         let y = vec![Complex::new(1f32, 2f32), Complex::new(1f32, 3f32)];
 
-        assert_eq!(H(x) * y, Complex::new(-9f32, 9f32));
+        assert_eq!(&H(x) * &y, Complex::new(-9f32, 9f32));
     }
 }
