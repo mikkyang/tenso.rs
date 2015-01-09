@@ -136,7 +136,9 @@ impl<T: PartialEq> PartialEq for Mat<T> {
     }
 }
 
-impl<T> Index<uint, [T]> for Mat<T> {
+impl<T> Index<uint> for Mat<T> {
+    type Output = [T];
+
     fn index<'a>(&'a self, index: &uint) -> &'a [T] {
         unsafe {
             let ptr = self.data.as_slice().as_ptr().offset((*index * self.cols) as int);
@@ -158,9 +160,11 @@ impl<T: fmt::Show> fmt::Show for Mat<T> {
     }
 }
 
-impl<'a, T> Mul<&'a Vec<T>, Vec<T>> for Mat<T>
+impl<'a, 'b, T> Mul<&'a Vec<T>> for &'b Mat<T>
 where T: Default + Gemv {
-    fn mul(&self, x: &'a Vec<T>) -> Vec<T> {
+    type Output = Vec<T>;
+
+    fn mul(self, x: &'a Vec<T>) -> Vec<T> {
         let mut result = Vec::with_capacity(self.rows);
 
         Gemv::gemv(&Default::one(), self, x, &Default::zero(), &mut result);
@@ -170,9 +174,11 @@ where T: Default + Gemv {
     }
 }
 
-impl<'a, T> Mul<&'a Mat<T>, Mat<T>> for Mat<T>
+impl<'a, 'b, T> Mul<&'a Mat<T>> for &'b Mat<T>
 where T: Default + Gemm {
-    fn mul(&self, b: &'a Mat<T>) -> Mat<T> {
+    type Output = Mat<T>;
+
+    fn mul(self, b: &'a Mat<T>) -> Mat<T> {
         let mut result = Mat::zero(self.cols, b.rows);
         Gemm::gemm(&Default::one(), self, b, &Default::zero(), &mut result);
 
