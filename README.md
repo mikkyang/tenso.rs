@@ -48,7 +48,7 @@ fn main() {
     let x = TVec::from_vec(vec![1f32, 2f32]);
     let y = TVec::from_vec(vec![-3f32, 1f32]);
 
-    assert_eq!(T(x) * y, -1f32);
+    assert_eq!(&T(x) * &y, -1f32);
 }
 
 ```
