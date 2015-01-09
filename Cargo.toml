@@ -4,10 +4,6 @@ name = "tensors"
 version = "0.0.1"
 authors = ["Michael Yang <mikkyangg@gmail.com>"]
 
-[dependencies.blas]
-
-git = "https://github.com/mikkyang/rust-blas.git"
-
-[dependencies.num]
-
-git = "https://github.com/rust-lang/num.git"
+[dependencies]
+rblas = "0.0.1"
+num = "*"
