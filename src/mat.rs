@@ -6,7 +6,10 @@
 use std::fmt;
 use std::mem;
 use std::num::NumCast;
-use std::ops::Index;
+use std::ops::{
+    Index,
+    Mul,
+};
 use std::raw::Slice;
 use std::slice::AsSlice;
 use blas::default::Default;
