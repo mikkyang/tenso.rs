@@ -197,11 +197,11 @@ macro_rules! mat(
     ($($($e: expr),+);*) => ({
         // leading _ to allow empty construction without a warning.
         let mut _temp = Mat::new();
-        let mut rows = 0u;
+        let mut rows = 0usize;
         let mut _cols;
         $(
             rows += 1;
-            _cols = 0u;
+            _cols = 0usize;
             $(
                 _cols += 1;
                 _temp.push($e);
