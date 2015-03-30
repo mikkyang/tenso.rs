@@ -23,8 +23,8 @@ use blas::vector::ops::Copy;
 use default::Default;
 
 pub struct Mat<T> {
-    rows: uint,
-    cols: uint,
+    rows: usize,
+    cols: usize,
     data: Vec<T>,
 }
 
@@ -36,12 +36,12 @@ impl<T> Mat<T> {
     }
 
     #[inline]
-    pub fn from_vec(rows: uint, cols: uint, vec: Vec<T>) -> Mat<T> {
+    pub fn from_vec(rows: usize, cols: usize, vec: Vec<T>) -> Mat<T> {
         Mat { rows: rows, cols: cols, data: vec }
     }
 
     #[inline]
-    pub fn zero(rows: uint, cols: uint) -> Mat<T> {
+    pub fn zero(rows: usize, cols: usize) -> Mat<T> {
         let mut _data: Vec<T> = Vec::with_capacity(rows * cols);
         unsafe { _data.set_len(rows * cols); }
         Mat { rows: rows, cols: cols, data: _data}
@@ -53,22 +53,22 @@ impl<T> Mat<T> {
     }
 
     #[inline]
-    pub fn rows(&self) -> uint {
+    pub fn rows(&self) -> usize {
         self.rows
     }
 
     #[inline]
-    pub fn cols(&self) -> uint {
+    pub fn cols(&self) -> usize {
         self.cols
     }
 
     #[inline]
-    pub unsafe fn set_rows(&mut self, rows: uint) {
+    pub unsafe fn set_rows(&mut self, rows: usize) {
         self.rows = rows;
     }
 
     #[inline]
-    pub unsafe fn set_cols(&mut self, cols: uint) {
+    pub unsafe fn set_cols(&mut self, cols: usize) {
         self.cols = cols;
     }
 
@@ -136,12 +136,12 @@ impl<T: PartialEq> PartialEq for Mat<T> {
     }
 }
 
-impl<T> Index<uint> for Mat<T> {
+impl<T> Index<usize> for Mat<T> {
     type Output = [T];
 
-    fn index<'a>(&'a self, index: &uint) -> &'a [T] {
+    fn index<'a>(&'a self, index: &usize) -> &'a [T] {
         unsafe {
-            let ptr = self.data.as_slice().as_ptr().offset((*index * self.cols) as int);
+            let ptr = self.data.as_slice().as_ptr().offset((*index * self.cols) as isize);
             mem::transmute(Slice { data: ptr, len: self.cols })
         }
     }
@@ -149,7 +149,7 @@ impl<T> Index<uint> for Mat<T> {
 
 impl<T: fmt::Show> fmt::Show for Mat<T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        for i in range(0u, self.rows) {
+        for i in 0usize..self.rows {
             match writeln!(f, "{}", &self[i]) {
                 Ok(_) => (),
                 x => return x,

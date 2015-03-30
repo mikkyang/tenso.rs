@@ -103,7 +103,7 @@ where T: Copy + Default + Ger + Gerc,
     fn mul(self, x: &'a Trans<V>) -> Mat<T> {
         let v = x.into_inner();
         let rows = self.data.len();
-        let cols: uint = NumCast::from(v.len()).unwrap();
+        let cols: usize = NumCast::from(v.len()).unwrap();
         let mut result = Mat::zero(rows, cols);
 
         match x {
