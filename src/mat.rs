@@ -139,18 +139,25 @@ impl<T: PartialEq> PartialEq for Mat<T> {
 impl<T> Index<usize> for Mat<T> {
     type Output = [T];
 
-    fn index<'a>(&'a self, index: &usize) -> &'a [T] {
+    fn index<'a>(&'a self, index: usize) -> &'a [T] {
         unsafe {
-            let ptr = self.data.as_slice().as_ptr().offset((*index * self.cols) as isize);
+            let ptr = self.data.as_slice().as_ptr().offset((index * self.cols) as isize);
             mem::transmute(Slice { data: ptr, len: self.cols })
         }
     }
 }
 
-impl<T: fmt::Show> fmt::Show for Mat<T> {
+impl<T: fmt::Debug> fmt::Debug for Mat<T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         for i in 0usize..self.rows {
-            match writeln!(f, "{}", &self[i]) {
+            for j in 0usize..self.cols {
+                match write!(f, "{:?}", self[i][j]) {
+                    Ok(_) => (),
+                    x => return x,
+                }
+            }
+
+            match writeln!(f, "") {
                 Ok(_) => (),
                 x => return x,
             }
