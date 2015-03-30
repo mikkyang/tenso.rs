@@ -11,7 +11,6 @@ use std::ops::{
     Mul,
 };
 use std::raw::Slice;
-use std::slice::AsSlice;
 use blas::matrix::Matrix;
 use blas::matrix::ops::{
     Gemm,
@@ -74,12 +73,12 @@ impl<T> Mat<T> {
 
     #[inline]
     pub unsafe fn as_slice<'a>(&'a self) -> &'a [T] {
-        self.data.as_slice()
+        &self.data[..]
     }
 
     #[inline]
     pub unsafe fn as_mut_slice<'a>(&'a mut self) -> &'a mut [T] {
-        self.data.as_mut_slice()
+        &mut self.data[..]
     }
 }
 
@@ -141,7 +140,7 @@ impl<T> Index<usize> for Mat<T> {
 
     fn index<'a>(&'a self, index: usize) -> &'a [T] {
         unsafe {
-            let ptr = self.data.as_slice().as_ptr().offset((index * self.cols) as isize);
+            let ptr = (&self.data[..]).as_ptr().offset((index * self.cols) as isize);
             mem::transmute(Slice { data: ptr, len: self.cols })
         }
     }

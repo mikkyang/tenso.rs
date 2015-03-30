@@ -49,10 +49,10 @@ impl<T> Vector<T> for Vec<T> {
     fn len(&self) -> i32 { NumCast::from(self.data.len()).unwrap() }
 
     #[inline]
-    fn as_ptr(&self) -> *const T { self.data.as_slice().as_ptr() }
+    fn as_ptr(&self) -> *const T { (&self.data[..]).as_ptr() }
 
     #[inline]
-    fn as_mut_ptr(&mut self) -> *mut T { self.data.as_mut_slice().as_mut_ptr() }
+    fn as_mut_ptr(&mut self) -> *mut T { (&mut self.data[..]).as_mut_ptr() }
 }
 
 impl<T: Copy> Clone for Vec<T> {
